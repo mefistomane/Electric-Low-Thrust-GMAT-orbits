@@ -1,0 +1,572 @@
+%General Mission Analysis Tool(GMAT) Script
+
+
+
+% ========================================================
+% ------------- LunaRadSat trasfer manouver --------------
+% ========================================================
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft LRS1;
+LRS1.DateFormat = UTCGregorian;
+LRS1.Epoch = '09 Nov 2028 12:00:00.000';
+LRS1.CoordinateSystem = LunaMJ2000Eq;
+LRS1.DisplayStateType = Keplerian;
+LRS1.SMA = 6136.999999999967;
+LRS1.ECC = 0.5865999999999981;
+LRS1.INC = 86.00000000000057;
+LRS1.RAAN = 360;
+LRS1.AOP = 269.9999999999994;
+LRS1.TA = 8.537736462515939e-07;
+LRS1.DryMass = 22;
+LRS1.Cd = 2.2;
+LRS1.Cr = 1.8;
+LRS1.DragArea = 0.075;
+LRS1.SRPArea = 0.3;
+LRS1.SPADDragScaleFactor = 1;
+LRS1.SPADSRPScaleFactor = 1;
+LRS1.AtmosDensityScaleFactor = 1;
+LRS1.ExtendedMassPropertiesModel = 'None';
+LRS1.Tanks = {ElectricTank1};
+LRS1.Thrusters = {ElectricThruster1};
+LRS1.PowerSystem = SolarPowerSystem1;
+LRS1.NAIFId = -10000001;
+LRS1.NAIFIdReferenceFrame = -9000001;
+LRS1.OrbitColor = Red;
+LRS1.TargetColor = Teal;
+LRS1.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+LRS1.CdSigma = 1e+70;
+LRS1.CrSigma = 1e+70;
+LRS1.Id = 'SatId';
+LRS1.Attitude = CoordinateSystemFixed;
+LRS1.SPADSRPInterpolationMethod = Bilinear;
+LRS1.SPADSRPScaleFactorSigma = 1e+70;
+LRS1.SPADDragInterpolationMethod = Bilinear;
+LRS1.SPADDragScaleFactorSigma = 1e+70;
+LRS1.AtmosDensityScaleFactorSigma = 1e+70;
+LRS1.ModelFile = 'aura.3ds';
+LRS1.ModelOffsetX = 0;
+LRS1.ModelOffsetY = 0;
+LRS1.ModelOffsetZ = 0;
+LRS1.ModelRotationX = 0;
+LRS1.ModelRotationY = 0;
+LRS1.ModelRotationZ = 0;
+LRS1.ModelScale = 1;
+LRS1.AttitudeDisplayStateType = 'Quaternion';
+LRS1.AttitudeRateDisplayStateType = 'AngularVelocity';
+LRS1.AttitudeCoordinateSystem = LunaMJ2000Eq;
+LRS1.EulerAngleSequence = '321';
+
+%----------------------------------------
+%---------- Hardware Components
+%----------------------------------------
+
+Create ElectricTank ElectricTank1;
+ElectricTank1.DirectionX = 0;
+ElectricTank1.DirectionY = 0;
+ElectricTank1.DirectionZ = 1;
+ElectricTank1.SecondDirectionX = 0;
+ElectricTank1.SecondDirectionY = -1;
+ElectricTank1.SecondDirectionZ = 0;
+ElectricTank1.HWOriginInBCSX = 0;
+ElectricTank1.HWOriginInBCSY = 0;
+ElectricTank1.HWOriginInBCSZ = 0;
+ElectricTank1.AllowNegativeFuelMass = false;
+ElectricTank1.FuelMass = 2;
+ElectricTank1.FuelCenterOfMassX = 0;
+ElectricTank1.FuelCenterOfMassY = 0;
+ElectricTank1.FuelCenterOfMassZ = 0;
+ElectricTank1.FuelMomentOfInertiaXX = 99;
+ElectricTank1.FuelMomentOfInertiaXY = 0;
+ElectricTank1.FuelMomentOfInertiaXZ = 0;
+ElectricTank1.FuelMomentOfInertiaYY = 99;
+ElectricTank1.FuelMomentOfInertiaYZ = 0;
+ElectricTank1.FuelMomentOfInertiaZZ = 99;
+
+Create ElectricThruster ElectricThruster1;
+ElectricThruster1.HWOriginInBCSX = 0;
+ElectricThruster1.HWOriginInBCSY = 0;
+ElectricThruster1.HWOriginInBCSZ = 0;
+ElectricThruster1.CoordinateSystem = Local;
+ElectricThruster1.Origin = Luna;
+ElectricThruster1.Axes = VNB;
+ElectricThruster1.ThrustDirection1 = -1;
+ElectricThruster1.ThrustDirection2 = 0;
+ElectricThruster1.ThrustDirection3 = 0;
+ElectricThruster1.DutyCycle = 1;
+ElectricThruster1.ThrustScaleFactor = 1;
+ElectricThruster1.DecrementMass = true;
+ElectricThruster1.Tank = {ElectricTank1};
+ElectricThruster1.MixRatio = [ 1 ];
+ElectricThruster1.GravitationalAccel = 9.81;
+ElectricThruster1.ThrustModel = ConstantThrustAndIsp;
+ElectricThruster1.MaximumUsablePower = 0.06;
+ElectricThruster1.MinimumUsablePower = 0.001;
+ElectricThruster1.ThrustCoeff1 = -5.19082;
+ElectricThruster1.ThrustCoeff2 = 2.96519;
+ElectricThruster1.ThrustCoeff3 = -14.4789;
+ElectricThruster1.ThrustCoeff4 = 54.05382;
+ElectricThruster1.ThrustCoeff5 = -0.00100092;
+ElectricThruster1.MassFlowCoeff1 = -0.004776;
+ElectricThruster1.MassFlowCoeff2 = 0.05717;
+ElectricThruster1.MassFlowCoeff3 = -0.09956;
+ElectricThruster1.MassFlowCoeff4 = 0.03211;
+ElectricThruster1.MassFlowCoeff5 = 2.13781;
+ElectricThruster1.FixedEfficiency = 0.7;
+ElectricThruster1.Isp = 800;
+ElectricThruster1.ConstantThrust = 0.0018;
+
+Create SolarPowerSystem SolarPowerSystem1;
+SolarPowerSystem1.EpochFormat = 'UTCGregorian';
+SolarPowerSystem1.InitialEpoch = ''09 Nov 2028 12:00:00.000'';
+SolarPowerSystem1.InitialMaxPower = 0.3;
+SolarPowerSystem1.AnnualDecayRate = 0.5;
+SolarPowerSystem1.Margin = 5;
+SolarPowerSystem1.BusCoeff1 = 0.001;
+SolarPowerSystem1.BusCoeff2 = 0;
+SolarPowerSystem1.BusCoeff3 = 0;
+SolarPowerSystem1.ShadowModel = 'DualCone';
+SolarPowerSystem1.ShadowBodies = {'Earth', 'Luna'};
+SolarPowerSystem1.SolarCoeff1 = 0.3;
+SolarPowerSystem1.SolarCoeff2 = 0;
+SolarPowerSystem1.SolarCoeff3 = 0;
+SolarPowerSystem1.SolarCoeff4 = 0;
+SolarPowerSystem1.SolarCoeff5 = 0;
+
+
+
+
+
+
+%----------------------------------------
+%---------- ForceModels
+%----------------------------------------
+
+Create ForceModel DefaultProp_ForceModel;
+DefaultProp_ForceModel.CentralBody = Luna;
+DefaultProp_ForceModel.PrimaryBodies = {Luna};
+DefaultProp_ForceModel.PointMasses = {Earth, Sun};
+DefaultProp_ForceModel.Drag = None;
+DefaultProp_ForceModel.SRP = Off;
+DefaultProp_ForceModel.RelativisticCorrection = Off;
+DefaultProp_ForceModel.ErrorControl = RSSStep;
+DefaultProp_ForceModel.GravityField.Luna.Degree = 8;
+DefaultProp_ForceModel.GravityField.Luna.Order = 8;
+DefaultProp_ForceModel.GravityField.Luna.StmLimit = 100;
+DefaultProp_ForceModel.GravityField.Luna.PotentialFile = 'LP165P.cof';
+DefaultProp_ForceModel.GravityField.Luna.TideModel = 'None';
+
+%----------------------------------------
+%---------- Propagators
+%----------------------------------------
+
+Create Propagator DefaultProp;
+DefaultProp.FM = DefaultProp_ForceModel;
+DefaultProp.Type = RungeKutta89;
+DefaultProp.InitialStepSize = 60;
+DefaultProp.Accuracy = 9.999999999999999e-12;
+DefaultProp.MinStep = 0.001;
+DefaultProp.MaxStep = 1000;
+DefaultProp.MaxStepAttempts = 50;
+DefaultProp.StopIfAccuracyIsViolated = true;
+
+%----------------------------------------
+%---------- Burns
+%----------------------------------------
+
+Create FiniteBurn FiniteBurn1;
+FiniteBurn1.Thrusters = {ElectricThruster1};
+FiniteBurn1.ThrottleLogicAlgorithm = 'MaxNumberOfThrusters';
+
+%----------------------------------------
+%---------- Coordinate Systems
+%----------------------------------------
+
+Create CoordinateSystem LunaMJ2000Eq;
+LunaMJ2000Eq.Origin = Luna;
+LunaMJ2000Eq.Axes = MJ2000Eq;
+
+%----------------------------------------
+%---------- EventLocators
+%----------------------------------------
+
+Create EclipseLocator EclipseLocator1;
+EclipseLocator1.Spacecraft = LRS1;
+EclipseLocator1.Filename = 'EclipseLocator1.txt';
+EclipseLocator1.OccultingBodies = {Earth, Luna};
+EclipseLocator1.InputEpochFormat = 'UTCGregorian';
+EclipseLocator1.InitialEpoch = '09 Nov 2028 12:00:00.000';
+EclipseLocator1.StepSize = 10;
+EclipseLocator1.FinalEpoch = '30 Jan 2029 12:00:00.000';
+EclipseLocator1.UseLightTimeDelay = true;
+EclipseLocator1.UseStellarAberration = true;
+EclipseLocator1.WriteReport = true;
+EclipseLocator1.RunMode = Automatic;
+EclipseLocator1.UseEntireInterval = true;
+EclipseLocator1.EclipseTypes = {'Umbra', 'Penumbra', 'Antumbra'};
+
+%----------------------------------------
+%---------- Subscribers (Interfaccia)
+%----------------------------------------
+
+Create OpenFramesInterface DefaultOrbitView;
+DefaultOrbitView.SolverIterations = Current;
+DefaultOrbitView.UpperLeft = [ 0.09823529411764706 0.09626955475330927 ];
+DefaultOrbitView.Size = [ 0.5982352941176471 0.5956678700361011 ];
+DefaultOrbitView.RelativeZOrder = 1659;
+DefaultOrbitView.Maximized = false;
+DefaultOrbitView.Add = {LRS1, Luna, Earth, Sun};
+DefaultOrbitView.View = {DefaultOrbitView_View};
+DefaultOrbitView.CoordinateSystem = LunaMJ2000Eq;
+DefaultOrbitView.DrawObject = [ true true true true ];
+DefaultOrbitView.DrawTrajectory = [ true true true true ];
+DefaultOrbitView.DrawAxes = [ false false false false ];
+DefaultOrbitView.DrawXYPlane = [ false false false false ];
+DefaultOrbitView.DrawLabel = [ true true true true ];
+DefaultOrbitView.DrawUsePropLabel = [ false false false false ];
+DefaultOrbitView.DrawCenterPoint = [ true true true false ];
+DefaultOrbitView.DrawEndPoints = [ false false false false ];
+DefaultOrbitView.DrawVelocity = [ false false false false ];
+DefaultOrbitView.DrawGrid = [ false false false false ];
+DefaultOrbitView.DrawLineWidth = [ 2 2 2 2 ];
+DefaultOrbitView.DrawMarkerSize = [ 5 10 10 10 ];
+DefaultOrbitView.DrawFontSize = [ 20 20 20 20 ];
+DefaultOrbitView.Axes = Off;
+DefaultOrbitView.AxesLength = 12756.2726;
+DefaultOrbitView.AxesLabels = Off;
+DefaultOrbitView.FrameLabel = Off;
+DefaultOrbitView.XYPlane = Off;
+DefaultOrbitView.EclipticPlane = Off;
+DefaultOrbitView.EnableStars = On;
+DefaultOrbitView.StarCatalog = 'inp_StarsHYGv3.txt';
+DefaultOrbitView.StarCount = 40000;
+DefaultOrbitView.MinStarMag = -2;
+DefaultOrbitView.MaxStarMag = 6;
+DefaultOrbitView.MinStarPixels = 1;
+DefaultOrbitView.MaxStarPixels = 10;
+DefaultOrbitView.MinStarDimRatio = 0.5;
+DefaultOrbitView.ShowPlot = true;
+DefaultOrbitView.ShowToolbar = true;
+DefaultOrbitView.SolverIterLastN = 1;
+DefaultOrbitView.ShowVR = false;
+DefaultOrbitView.PlaybackTimeScale = 3600;
+DefaultOrbitView.MultisampleAntiAliasing = On;
+DefaultOrbitView.MSAASamples = 2;
+DefaultOrbitView.DrawFontPosition = {'Top-Right', 'Top-Right', 'Top-Right', 'Top-Right'};
+
+Create ReportFile SummaryFile;
+SummaryFile.SolverIterations = Current;
+SummaryFile.UpperLeft = [ 0.1017647058823529 0.1739130434782609 ];
+SummaryFile.Size = [ 0.7141176470588235 0.7953964194373402 ];
+SummaryFile.RelativeZOrder = 148;
+SummaryFile.Maximized = false;
+SummaryFile.Filename = 'Summary_File.txt';
+SummaryFile.Precision = 16;
+SummaryFile.Add = {LRS1.ElapsedDays, DeltaV, FuelConsumed, LRS1.Luna.RadApo, LRS1.Luna.RadPer, LRS1.LunaMJ2000Eq.INC, LRS1.LunaMJ2000Eq.AOP, LRS1.LunaMJ2000Eq.RAAN};
+SummaryFile.WriteHeaders = true;
+SummaryFile.LeftJustify = On;
+SummaryFile.ZeroFill = Off;
+SummaryFile.FixedWidth = true;
+SummaryFile.Delimiter = ' ';
+SummaryFile.ColumnWidth = 23;
+SummaryFile.WriteReport = true;
+SummaryFile.AppendToExistingFile = false;
+
+Create ReportFile Orbit_Summary;
+Orbit_Summary.SolverIterations = Current;
+Orbit_Summary.UpperLeft = [ 0.09 0.202113606340819 ];
+Orbit_Summary.Size = [ 0.6952941176470588 0.7939233817701453 ];
+Orbit_Summary.RelativeZOrder = 1729;
+Orbit_Summary.Maximized = false;
+Orbit_Summary.Filename = 'Orbite_Target.txt';
+Orbit_Summary.Precision = 16;
+Orbit_Summary.Add = {LRS1.UTCGregorian, LRS1.ElapsedDays, LRS1.Luna.OrbitPeriod, LRS1.Luna.SMA, LRS1.Luna.ECC, CurrentINC, LRS1.LunaMJ2000Eq.AOP, LRS1.LunaMJ2000Eq.RAAN, LRS1.Luna.BetaAngle, AltApo, AltPer};
+Orbit_Summary.WriteHeaders = true;
+Orbit_Summary.LeftJustify = On;
+Orbit_Summary.ZeroFill = Off;
+Orbit_Summary.FixedWidth = true;
+Orbit_Summary.Delimiter = ' ';
+Orbit_Summary.ColumnWidth = 23;
+Orbit_Summary.WriteReport = true;
+Orbit_Summary.AppendToExistingFile = false;
+
+%---------------------------------------------------
+%Subscribers
+%---------------------------------------------------
+
+Create XYPlot SMAPlot;
+SMAPlot.SolverIterations = Current;
+SMAPlot.UpperLeft = [ 0 0 ];
+SMAPlot.Size = [ 0.4 0.4789410348977136 ];
+SMAPlot.RelativeZOrder = 1632;
+SMAPlot.Maximized = false;
+SMAPlot.XVariable = LRS1.ElapsedDays;
+SMAPlot.YVariables = {LRS1.Luna.SMA};
+SMAPlot.ShowGrid = true;
+SMAPlot.ShowPlot = true;
+
+Create XYPlot ECCPlot;
+ECCPlot.SolverIterations = Current;
+ECCPlot.UpperLeft = [ 0.2641176470588235 0 ];
+ECCPlot.Size = [ 0.4 0.4789410348977136 ];
+ECCPlot.RelativeZOrder = 1647;
+ECCPlot.Maximized = false;
+ECCPlot.XVariable = LRS1.ElapsedDays;
+ECCPlot.YVariables = {LRS1.Luna.ECC};
+ECCPlot.ShowGrid = true;
+ECCPlot.ShowPlot = true;
+
+Create XYPlot MassPlot;
+MassPlot.SolverIterations = Current;
+MassPlot.UpperLeft = [ 0.03529411764705882 0.4978165938864629 ];
+MassPlot.Size = [ 0.5 0.4497816593886463 ];
+MassPlot.RelativeZOrder = 2150;
+MassPlot.Maximized = false;
+MassPlot.XVariable = LRS1.ElapsedDays;
+MassPlot.YVariables = {LRS1.TotalMass};
+MassPlot.ShowGrid = true;
+MassPlot.ShowPlot = false;
+
+Create XYPlot BetaPlot;
+BetaPlot.SolverIterations = Current;
+BetaPlot.UpperLeft = [ 0.5823529411764706 0.5451263537906137 ];
+BetaPlot.Size = [ 0.4 0.4789410348977136 ];
+BetaPlot.RelativeZOrder = 1667;
+BetaPlot.Maximized = false;
+BetaPlot.XVariable = LRS1.ElapsedDays;
+BetaPlot.YVariables = {LRS1.Luna.BetaAngle};
+BetaPlot.ShowGrid = true;
+BetaPlot.ShowPlot = true;
+
+Create XYPlot ApsisPlot;
+ApsisPlot.SolverIterations = Current;
+ApsisPlot.UpperLeft = [ 0 0 ];
+ApsisPlot.Size = [ 0 0 ];
+ApsisPlot.RelativeZOrder = 0;
+ApsisPlot.Maximized = false;
+ApsisPlot.XVariable = LRS1.ElapsedDays;
+ApsisPlot.YVariables = {LRS1.Luna.RadApo, LRS1.Luna.RadPer};
+ApsisPlot.ShowGrid = true;
+ApsisPlot.ShowPlot = false;
+
+Create XYPlot DeltaVPlot;
+DeltaVPlot.SolverIterations = Current;
+DeltaVPlot.UpperLeft = [ 0 0 ];
+DeltaVPlot.Size = [ 0.4 0.4789410348977136 ];
+DeltaVPlot.RelativeZOrder = 1622;
+DeltaVPlot.Maximized = false;
+DeltaVPlot.XVariable = LRS1.ElapsedDays;
+DeltaVPlot.YVariables = {DeltaV};
+DeltaVPlot.ShowGrid = true;
+DeltaVPlot.ShowPlot = true;
+
+Create XYPlot FuelPlot;
+FuelPlot.SolverIterations = Current;
+FuelPlot.UpperLeft = [ 0.01235294117647059 0.2539109506618532 ];
+FuelPlot.Size = [ 0.4 0.4789410348977136 ];
+FuelPlot.RelativeZOrder = 1627;
+FuelPlot.Maximized = false;
+FuelPlot.XVariable = LRS1.ElapsedDays;
+FuelPlot.YVariables = {LRS1.ElectricTank1.FuelMass};
+FuelPlot.ShowGrid = true;
+FuelPlot.ShowPlot = true;
+
+Create XYPlot AltApoPlot;
+AltApoPlot.SolverIterations = Current;
+AltApoPlot.UpperLeft = [ 0.02529411764705882 0.529482551143201 ];
+AltApoPlot.Size = [ 0.4 0.4789410348977136 ];
+AltApoPlot.RelativeZOrder = 1657;
+AltApoPlot.Maximized = false;
+AltApoPlot.XVariable = LRS1.ElapsedDays;
+AltApoPlot.YVariables = {LRS1.Luna.RadApo};
+AltApoPlot.ShowGrid = true;
+AltApoPlot.ShowPlot = true;
+
+Create XYPlot AltPerPlot;
+AltPerPlot.SolverIterations = Current;
+AltPerPlot.UpperLeft = [ 0.2752941176470588 0.5451263537906137 ];
+AltPerPlot.Size = [ 0.4 0.4789410348977136 ];
+AltPerPlot.RelativeZOrder = 1672;
+AltPerPlot.Maximized = false;
+AltPerPlot.XVariable = LRS1.ElapsedDays;
+AltPerPlot.YVariables = {LRS1.Luna.RadPer};
+AltPerPlot.ShowGrid = true;
+AltPerPlot.ShowPlot = true;
+
+Create XYPlot INCPlot;
+INCPlot.SolverIterations = Current;
+INCPlot.UpperLeft = [ 0.5694117647058824 0 ]; % Posizionalo dove preferisci
+INCPlot.Size = [ 0.4 0.4789410348977136 ];
+INCPlot.RelativeZOrder = 1663;
+INCPlot.Maximized = false;
+INCPlot.XVariable = LRS1.ElapsedDays;
+INCPlot.YVariables = {LRS1.LunaMJ2000Eq.INC};
+INCPlot.ShowGrid = true;
+INCPlot.ShowPlot = true; % Imposta a true per vederlo a schermo
+
+%----------------------------------------
+%---------- Arrays, Variables, Strings
+%----------------------------------------
+Create Variable BurnDuration PreBurnMass DeltaV CurrentRadPer CurrentRadApo TargetRadPer TargetRadApo ThresholdRadPer ThresholdRadApo OrbitCount;
+Create Variable TargetINC ThresholdINC MaxIterations BurnFraction TransferStartEpoch TransferEndEpoch TransferTime SafetyAlt SafetyFlag BurnTime;
+Create Variable TotalBurnTime OrbitPeriodHours AltApo AltPer FuelConsumed HalfBurn CoastToIgnition InitialFuel CurrentINC BF1;
+Create Variable BF2 Phase1Active Phase2Active;
+BurnDuration = 86400;      % secondi di burn per ogni manovra (regolabile)
+PreBurnMass = 0;
+DeltaV = 0;
+TargetRadPer = 1857.4;   % 100 km altitudine
+TargetRadApo = 5000.4;   % 4000 km altitudine
+ThresholdRadPer = 1838.4;   % TargetRadPer + 1
+ThresholdRadApo = 5738.4;   % TargetRadApo + 1
+OrbitCount = 0;
+TargetINC = 86;
+ThresholdINC = 86.5;  % tolleranza 0.5 gradi
+MaxIterations = 15000;
+BurnFraction = 1;
+SafetyAlt = 1842.4;
+SafetyFlag = 1;
+OrbitPeriodHours = 0;
+AltApo = 0;
+AltPer = 0;
+FuelConsumed = 0;
+HalfBurn = 0;
+CoastToIgnition = 0;
+BF1 = 0.367;
+BF2 = 0.411;
+
+
+
+
+
+
+
+%----------------------------------------
+%---------- User Objects (Telecamera)
+%----------------------------------------
+
+Create OpenFramesView DefaultOrbitView_View;
+DefaultOrbitView_View.ViewFrame = Luna;
+DefaultOrbitView_View.ViewTrajectory = Off;
+DefaultOrbitView_View.InertialFrame = Off;
+DefaultOrbitView_View.SetDefaultLocation = On;
+DefaultOrbitView_View.DefaultEye = [ 20000 0 5000 ];
+DefaultOrbitView_View.DefaultCenter = [ 0 0 0 ];
+DefaultOrbitView_View.DefaultUp = [ 0 0 1 ];
+DefaultOrbitView_View.SetCurrentLocation = On;
+DefaultOrbitView_View.CurrentEye = [ -7893.245696538844 -17599.50951544834 7276.945594802403 ];
+DefaultOrbitView_View.CurrentCenter = [ 3.637978807091713e-12 3.637978807091713e-12 -5.456968210637569e-12 ];
+DefaultOrbitView_View.CurrentUp = [ -0.5400370318654137 0.5168516656624682 0.6642472129530739 ];
+DefaultOrbitView_View.FOVy = 45;
+
+
+
+
+%----------------------------------------
+%---------- User Objects
+%----------------------------------------
+
+Create OpenFramesView LunaView;
+LunaView.ViewFrame = CoordinateSystem;
+LunaView.ViewTrajectory = On;
+LunaView.InertialFrame = On;
+LunaView.LookAtFrame = CoordinateSystem;
+LunaView.ShortestAngle = Off;
+LunaView.SetDefaultLocation = Off;
+LunaView.SetCurrentLocation = On;
+LunaView.CurrentEye = [ -285.4442017836359 -200002.2628657295 29.60219660088558 ];
+LunaView.CurrentCenter = [ 0 0 1.857358711276902e-11 ];
+LunaView.CurrentUp = [ 0.0002611460790332228 0.0001476365927650658 0.9999999550030799 ];
+LunaView.FOVy = 45;
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+
+
+
+% ========================================================
+% ----------------- MISSION SEQUENCE ---------------------
+% ========================================================
+BeginMissionSequence;
+
+% Inizializzazione
+DeltaV = 0;
+OrbitCount = 0;
+TransferStartEpoch = LRS1.A1ModJulian;
+InitialFuel = LRS1.ElectricTank1.FuelMass;
+Phase1Active = 1;
+Phase2Active = 1;
+SafetyAlt = 1852.4;
+
+Propagate DefaultProp(LRS1) {LRS1.Luna.Apoapsis};
+AltApo = LRS1.Luna.RadApo - 1737.4;
+AltPer = LRS1.Luna.RadPer - 1737.4;
+CurrentINC = LRS1.LunaMJ2000Eq.INC;
+% ========================================================
+% FASE 1: Abbassa RadApo
+% ========================================================
+While LRS1.Luna.RadApo > ThresholdRadApo & Phase1Active == 1
+   If LRS1.Luna.RadPer < SafetyAlt
+      Phase1Active = 0;
+   EndIf;
+   
+   If Phase1Active == 1
+      PreBurnMass = LRS1.TotalMass;
+      BurnDuration = BF1 * LRS1.Luna.OrbitPeriod;
+      HalfBurn = BurnDuration / 2;
+      CoastToIgnition = LRS1.Luna.OrbitPeriod / 2 - HalfBurn;
+      
+      Propagate DefaultProp(LRS1) {LRS1.ElapsedSecs = CoastToIgnition};
+      
+      BeginFiniteBurn FiniteBurn1(LRS1);
+      Propagate DefaultProp(LRS1) {LRS1.ElapsedSecs = BurnDuration};
+      EndFiniteBurn FiniteBurn1(LRS1);
+      TotalBurnTime = TotalBurnTime + BurnDuration;
+      Propagate DefaultProp(LRS1) {LRS1.Luna.Apoapsis};
+      
+      % AGGIORNAMENTO VARIABILI PER I GRAFICI
+      AltApo = LRS1.Luna.RadApo - 1737.4;
+      AltPer = LRS1.Luna.RadPer - 1737.4;
+      CurrentINC = LRS1.LunaMJ2000Eq.INC;
+      OrbitCount = OrbitCount + 1;
+      DeltaV = DeltaV + (800 * 9.81 * log(PreBurnMass / LRS1.TotalMass));
+   EndIf;
+EndWhile;
+
+% ========================================================
+% FASE 2: Abbassa RadPer
+% ========================================================
+Propagate DefaultProp(LRS1) {LRS1.Luna.Periapsis};
+
+While LRS1.Luna.RadPer > ThresholdRadPer & Phase2Active == 1
+   If LRS1.Luna.RadPer < 1838.4
+      Phase2Active = 0;
+   EndIf;
+   
+   If Phase2Active == 1
+      PreBurnMass = LRS1.TotalMass;
+      BurnDuration = BF2 * LRS1.Luna.OrbitPeriod;
+      HalfBurn = BurnDuration / 2;
+      CoastToIgnition = LRS1.Luna.OrbitPeriod / 2 - HalfBurn;
+      
+      Propagate DefaultProp(LRS1) {LRS1.ElapsedSecs = CoastToIgnition};
+      
+      BeginFiniteBurn FiniteBurn1(LRS1);
+      Propagate DefaultProp(LRS1) {LRS1.ElapsedSecs = BurnDuration};
+      EndFiniteBurn FiniteBurn1(LRS1);
+      TotalBurnTime = TotalBurnTime + BurnDuration;
+      Propagate DefaultProp(LRS1) {LRS1.Luna.Periapsis};
+      
+      % AGGIORNAMENTO VARIABILI PER I GRAFICI
+      AltApo = LRS1.Luna.RadApo - 1737.4;
+      AltPer = LRS1.Luna.RadPer - 1737.4;
+      CurrentINC = LRS1.LunaMJ2000Eq.INC;
+      OrbitCount = OrbitCount + 1;
+      DeltaV = DeltaV + (800 * 9.81 * log(PreBurnMass / LRS1.TotalMass));
+      FuelConsumed = 2 - LRS1.ElectricTank1.FuelMass;
+   EndIf;
+EndWhile;
+Write TotalBurnTime { Style = Concise, LogFile = false, MessageWindow = true }
