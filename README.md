@@ -2,7 +2,7 @@
 
 **Low-thrust orbit transfer, station-keeping and end-of-life disposal analysis for the LunaRadSat lunar CubeSat mission (GMAT)**
 
-*Politecnico di Torino – DIMEAS/STAR · Space Mission System Design 2026 (SMSD2026) · Phase 0/A study*
+*Politecnico di Torino - Space Mission System Design · Phase 0/A study*
 
 ---
 
