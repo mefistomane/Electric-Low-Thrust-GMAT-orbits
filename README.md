@@ -1,4 +1,4 @@
-# LunaRadSatOrbits
+# LunaRadSat orbits
 
 **Low-thrust orbit transfer, station-keeping and end-of-life disposal analysis for the LunaRadSat lunar CubeSat mission (GMAT)**
 
